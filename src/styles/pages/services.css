@@ -1,0 +1,90 @@
+/* ===== Services (page) ===== */
+.services-page-hero {
+  padding: calc(var(--nav-h) + 80px) 0 64px;
+  text-align: center;
+}
+.services-page-hero h1 { margin-bottom: 32px; }
+.services-page-hero p {
+  max-width: 64ch;
+  margin: 0 auto;
+  color: var(--ink-soft);
+  font-size: 17px;
+  font-weight: 300;
+  line-height: 1.6;
+}
+.services-filter {
+  display: flex;
+  justify-content: center;
+  gap: 8px;
+  margin: 48px 0 0;
+  flex-wrap: wrap;
+}
+.filter-chip {
+  padding: 10px 20px;
+  border-radius: 999px;
+  border: 1px solid var(--line);
+  font-family: var(--font-mono);
+  font-size: 10.5px;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--ink-soft);
+  cursor: pointer;
+  transition: all 0.2s;
+}
+.filter-chip:hover { border-color: var(--ink); }
+.filter-chip.active {
+  background: var(--ink);
+  color: var(--ivory);
+  border-color: var(--ink);
+}
+
+.service-row {
+  display: grid;
+  grid-template-columns: 80px 2fr 1fr auto;
+  gap: 20px;
+  align-items: center;
+  padding: 36px 0;
+  border-top: 1px solid var(--line);
+  cursor: pointer;
+  transition: padding-left 0.25s;
+  position: relative;
+}
+.service-row:last-child { border-bottom: 1px solid var(--line); }
+.service-row:hover { padding-left: 12px; }
+.service-row .num {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  letter-spacing: 0.22em;
+  color: var(--gold);
+}
+.service-row .name {
+  font-family: var(--font-display);
+  font-size: clamp(28px, 3vw, 35px);
+  font-weight: 400;
+  line-height: 1.1;
+}
+:root[dir="rtl"] .service-row .name {
+  font-size: clamp(28px, 3vw, 30px);
+}
+
+.service-row .name em { color: var(--oxblood); font-style: italic; }
+.service-row .desc {
+  font-size: 14px;
+  color: var(--ink-soft);
+  line-height: 1.6;
+  font-weight: 300;
+}
+.service-row .price-block { text-align: right; }
+.service-row .price-block .price {
+  font-family: var(--font-display);
+  font-size: 28px;
+  color: var(--ink);
+}
+.service-row .price-block .duration {
+  font-family: var(--font-mono);
+  font-size: 10px;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--taupe);
+  margin-top: 4px;
+}

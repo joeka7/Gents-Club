@@ -1,0 +1,134 @@
+/* ===== Layout containers ===== */
+.container {
+  width: 100%;
+  max-width: var(--max-w);
+  margin: 0 auto;
+  padding-inline: var(--gutter);
+}
+
+.section {
+  padding: clamp(72px, 10vw, 144px) 0;
+}
+.section-dark  { background: var(--ink);       color: var(--ivory); }
+.section-parchment { background: var(--parchment); }
+.section-bone  { background: var(--bone); }
+.section-ivory { background: var(--ivory); }
+.section-oxblood { background: var(--oxblood); color: var(--ivory); padding: clamp(56px, 10vw, 120px) 0; text-align: center; }
+
+/* Closing section on each page — the band directly above the footer shares one
+   background. Targeted by id because .section-dark is also used mid-page
+   (#about-stats, #memberships, #app), which must keep the ink background.
+   Home's #cta already resolves to this colour via .section-oxblood.
+   Add the id here when a new page's closing section is introduced. */
+#about-cta,
+#adults-pricing,
+#students-pricing {
+  background: var(--oxblood);
+}
+
+/* Page hero sections (non-home) */
+.page-hero {
+  position: relative;
+  min-height: 70vh;
+  background: var(--ink);
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+}
+.page-hero-media {
+  position: absolute;
+  inset: 0;
+}
+.page-hero-media img { width: 100%; height: 100%; object-fit: cover; display: block; }
+@media (max-width: 767px) {
+  .page-hero-media img {
+    object-position: 80%;
+  }
+}
+.page-hero-overlay {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(180deg, rgba(32, 51, 77,0.3) 0%, rgba(32, 51, 77,0.72) 100%);
+  pointer-events: none;
+}
+.page-hero-body {
+  position: relative;
+  z-index: 2;
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  padding: calc(var(--nav-h) + 64px) var(--gutter) 72px;
+  max-width: var(--max-w);
+  margin: 0 auto;
+  width: 100%;
+}
+
+/* Membership tier cards */
+.tier-cards {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 32px;
+}
+.tier-card {
+  background: var(--bone);
+  color: var(--ink);
+  overflow: hidden;
+  position: relative;
+}
+.tier-card-img {
+  aspect-ratio: 4/3;
+  overflow: hidden;
+}
+.tier-card-img img { width: 100%; height: 100%; object-fit: cover; display: block; }
+.tier-card-body { padding: 40px 36px; }
+.tier-card-header { display: flex; align-items: center; gap: 16px; margin-bottom: 16px; }
+.tier-card-header img { height: 40px; object-fit: contain; }
+.tier-card-age {
+  font-family: var(--font-mono);
+  font-size: 10px;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: var(--taupe);
+  margin-bottom: 4px;
+}
+.tier-card-name {
+  font-family: var(--font-display);
+  font-size: 32px;
+  font-weight: 400;
+}
+.tier-card-desc { color: var(--ink-soft); font-size: 14px; line-height: 1.65; font-weight: 300; margin-bottom: 24px; }
+.tier-card-price { display: flex; align-items: baseline; gap: 8px; margin-bottom: 24px; }
+.tier-card-price-num { font-family: var(--font-display); font-size: 48px; font-weight: 300; }
+.tier-card-price-unit { font-family: var(--font-mono); font-size: 12px; color: var(--taupe); letter-spacing: 0.15em; }
+
+/* Testimonial card */
+.testimonial-card { border-top: 1px solid var(--line); padding-top: 32px; }
+.testimonial-quote { font-family: var(--font-display); font-size: 40px; color: var(--gold); font-style: italic; line-height: 1; margin-bottom: 20px; }
+.testimonial-text { font-family: var(--font-display); font-size: 20px; line-height: 1.5; font-weight: 400; color: var(--ink); margin-bottom: 20px; }
+.testimonial-name { font-family: var(--font-mono); font-size: 10px; letter-spacing: 0.22em; text-transform: uppercase; color: var(--taupe); }
+.testimonial-sub  { font-family: var(--font-mono); font-size: 9px; letter-spacing: 0.18em; text-transform: uppercase; color: var(--gold); margin-top: 4px; }
+
+/* Membership benefit list */
+.benefit-list { list-style: none; margin-top: 24px; display: grid; gap: 16px; }
+.benefit-item { display: flex; gap: 12px; align-items: flex-start; font-size: 15px; color: var(--ink-soft); font-weight: 300; }
+.benefit-item img { width: 18px; height: 18px; object-fit: contain; margin-top: 2px; flex-shrink: 0; }
+
+/* App section */
+.app-device { display: flex; justify-content: center; align-items: flex-end; }
+.app-device img { max-height: 520px; object-fit: contain; }
+.app-badges { display: flex; gap: 16px; margin-top: 32px; flex-wrap: wrap; align-items: center; }
+.app-badges img { height: 44px; object-fit: contain; cursor: pointer; }
+.app-badges a:last-of-type img {height: 64px;}
+
+/* Hero meta buttons row */
+.hero-meta-btns { display: flex; gap: 12px; flex-wrap: wrap; }
+
+/* Section CTA center block */
+.section-cta-center { text-align: center; margin-bottom: 72px; }
+
+.rule {
+  border: 0;
+  border-top: 1px solid var(--line);
+  margin: 0;
+}

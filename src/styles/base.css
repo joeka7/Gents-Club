@@ -1,0 +1,50 @@
+/* ===== Typography ===== */
+.eyebrow {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: var(--taupe);
+  font-weight: 400;
+}
+.eyebrow .dot {
+  display: inline-block;
+  width: 4px; height: 4px;
+  background: var(--gold);
+  border-radius: 50%;
+  margin: 0 8px 2px 8px;
+  vertical-align: middle;
+}
+
+.display {
+  font-family: var(--font-display);
+  font-weight: 400;
+  letter-spacing: -0.01em;
+  line-height: 0.95;
+  color: var(--ink);
+}
+.display em {
+  font-style: italic;
+  color: var(--oxblood);
+  font-weight: 300;
+}
+
+h1.display { font-size: clamp(56px, 9vw, 140px); }
+h2.display { font-size: clamp(40px, 6vw, 88px); }
+h3.display { font-size: clamp(28px, 3.5vw, 48px); line-height: 1.05; }
+
+:root[dir="rtl"] h2.display {
+  font-size: 62px;
+  line-height: 1.2em;
+}
+:root[dir="rtl"] h1.display {
+  font-size: 100px;
+  line-height: 1.2em;
+}
+
+.body-lg {
+  font-size: 17px;
+  line-height: 1.6;
+  color: var(--ink-soft);
+  font-weight: 300;
+}

@@ -1,0 +1,375 @@
+/* ===== Zain / RTL ===== */
+:root[dir="rtl"] {
+  --font-body: 'Zain', 'Inter', sans-serif;
+  --font-display: 'Zain', 'Cormorant Garamond', serif;
+}
+
+:root[dir="rtl"] body,
+:root[dir="rtl"] p,
+:root[dir="rtl"] li,
+:root[dir="rtl"] label,
+:root[dir="rtl"] input,
+:root[dir="rtl"] textarea,
+:root[dir="rtl"] button,
+:root[dir="rtl"] a {
+  font-family: 'Zain', sans-serif;
+  letter-spacing: 0;
+}
+
+:root[dir="rtl"] h1,
+:root[dir="rtl"] h2,
+:root[dir="rtl"] h3,
+:root[dir="rtl"] h4,
+:root[dir="rtl"] .display,
+:root[dir="rtl"] .eyebrow,
+:root[dir="rtl"] .num,
+:root[dir="rtl"] .label,
+:root[dir="rtl"] .value {
+  font-family: 'Zain', sans-serif;
+  letter-spacing: 0;
+}
+
+/* Flip arrows for RTL */
+:root[dir="rtl"] .btn .arrow {
+  transform: scaleX(-1);
+}
+
+/* ══════════════════════════════════════════════════════
+   Premium Language Dropdown Selector
+   ══════════════════════════════════════════════════════ */
+
+.lang-dropdown { position: relative; flex-shrink: 0; }
+
+/* ── Trigger button ── */
+.lang-dropdown__trigger {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  height: 36px;
+  padding: 0 11px 0 9px;
+  border-radius: 12px;
+  background: rgba(32, 51, 77, 0.06);
+  border: 1px solid rgba(32, 51, 77, 0.11);
+  box-shadow:
+    inset 0 1px 2px rgba(0, 0, 0, 0.05),
+    0 1px 3px rgba(0, 0, 0, 0.04);
+  font-family: 'Inter', 'Zain', sans-serif;
+  font-size: 13px;
+  font-weight: 500;
+  letter-spacing: -0.01em;
+  color: var(--ink);
+  cursor: pointer;
+  transition:
+    background   0.18s ease,
+    border-color 0.18s ease,
+    box-shadow   0.18s ease;
+  white-space: nowrap;
+  user-select: none;
+  -webkit-tap-highlight-color: transparent;
+  outline: none;
+}
+
+.lang-dropdown__trigger:hover {
+  background: rgba(32, 51, 77, 0.09);
+  border-color: rgba(32, 51, 77, 0.17);
+  box-shadow:
+    inset 0 1px 2px rgba(0, 0, 0, 0.07),
+    0 2px 8px rgba(0, 0, 0, 0.07);
+}
+
+.lang-dropdown__trigger.is-open {
+  background: rgba(32, 51, 77, 0.09);
+  border-color: rgba(117, 162, 199, 0.50);
+  box-shadow:
+    inset 0 1px 2px rgba(0, 0, 0, 0.07),
+    0 0 0 3px rgba(117, 162, 199, 0.14);
+}
+
+.lang-dropdown__trigger:focus-visible {
+  outline: none;
+  border-color: rgba(117, 162, 199, 0.55);
+  box-shadow:
+    inset 0 1px 2px rgba(0, 0, 0, 0.06),
+    0 0 0 3px rgba(117, 162, 199, 0.18);
+}
+
+.lang-dropdown__flag { font-size: 17px; line-height: 1; flex-shrink: 0; }
+
+.lang-dropdown__current { font-size: 13px; font-weight: 500; }
+
+.lang-dropdown__chevron {
+  flex-shrink: 0;
+  opacity: 0.55;
+  margin-left: 1px;
+  transition: transform 0.22s cubic-bezier(0.4, 0, 0.2, 1), opacity 0.18s;
+}
+.lang-dropdown__chevron.is-open { transform: rotate(180deg); opacity: 0.85; }
+
+/* ── Light variant — transparent / dark nav ── */
+.lang-dropdown--light .lang-dropdown__trigger {
+  background: rgba(242, 246, 249, 0.10);
+  border-color: rgba(242, 246, 249, 0.22);
+  color: var(--ivory);
+  box-shadow:
+    inset 0 1px 3px rgba(0, 0, 0, 0.22),
+    0 1px 5px rgba(0, 0, 0, 0.10);
+}
+
+.lang-dropdown--light .lang-dropdown__trigger:hover {
+  background: rgba(242, 246, 249, 0.17);
+  border-color: rgba(242, 246, 249, 0.35);
+}
+
+.lang-dropdown--light .lang-dropdown__trigger.is-open {
+  background: rgba(242, 246, 249, 0.17);
+  border-color: rgba(117, 162, 199, 0.45);
+  box-shadow:
+    inset 0 1px 3px rgba(0, 0, 0, 0.20),
+    0 0 0 3px rgba(117, 162, 199, 0.18);
+}
+
+/* ── Dropdown menu ── */
+.lang-dropdown__menu {
+  position: absolute;
+  top: calc(100% + 8px);
+  left: 0;
+  min-width: 210px;
+  background: var(--ivory);
+  border: 1px solid rgba(32, 51, 77, 0.09);
+  border-radius: 16px;
+  padding: 6px;
+  z-index: 300;
+  box-shadow:
+    0 0   0 1px rgba(32, 51, 77, 0.04),
+    0 4px 8px  rgba(0, 0, 0, 0.06),
+    0 12px 32px rgba(0, 0, 0, 0.12),
+    0 24px 56px rgba(0, 0, 0, 0.08);
+  animation: ldMenuIn 0.20s cubic-bezier(0.16, 1, 0.3, 1) both;
+  transform-origin: top left;
+}
+
+
+:root[dir="ltr"] .lang-dropdown__menu {
+  left: -100px;
+}
+
+/* RTL: open from right edge */
+:root[dir="rtl"] .lang-dropdown__menu {
+  left: auto;
+  left: -30px;
+  transform-origin: top right;
+}
+
+@keyframes ldMenuIn {
+  from { opacity: 0; transform: scale(0.95) translateY(-6px); }
+  to   { opacity: 1; transform: scale(1)    translateY(0);    }
+}
+
+/* ── Dropdown items ── */
+.lang-dropdown__item {
+  display: flex;
+  align-items: center;
+  gap: 11px;
+  width: 100%;
+  padding: 9px 11px;
+  border-radius: 10px;
+  font-family: 'Inter', 'Zain', sans-serif;
+  color: var(--ink);
+  background: transparent;
+  border: none;
+  outline: none;
+  cursor: pointer;
+  text-align: left;
+  transition: background 0.13s ease;
+  -webkit-tap-highlight-color: transparent;
+}
+
+.lang-dropdown__item:hover     { background: rgba(117, 162, 199, 0.10); }
+.lang-dropdown__item.is-active { background: rgba(117, 162, 199, 0.13); }
+.lang-dropdown__item:focus-visible { background: rgba(117, 162, 199, 0.16); outline: none; }
+
+.lang-dropdown__item + .lang-dropdown__item {
+  /* subtle divider via margin instead of border to keep it light */
+  margin-top: 1px;
+}
+
+.lang-dropdown__item-flag { font-size: 20px; line-height: 1; flex-shrink: 0; }
+
+.lang-dropdown__item-text {
+  display: flex;
+  flex-direction: column;
+  gap: 1px;
+  flex: 1;
+  min-width: 0;
+}
+
+.lang-dropdown__item-native {
+  font-size: 14px;
+  font-weight: 500;
+  color: var(--ink);
+  line-height: 1.25;
+}
+
+.lang-dropdown__item-label {
+  font-size: 11px;
+  font-weight: 400;
+  color: var(--ink-soft);
+  line-height: 1.25;
+  letter-spacing: 0.01em;
+}
+
+/* Gold checkmark for active item */
+.lang-dropdown__check {
+  flex-shrink: 0;
+  color: var(--gold);
+  opacity: 0;
+  transition: opacity 0.15s ease;
+}
+.lang-dropdown__item.is-active .lang-dropdown__check { opacity: 1; }
+
+/* ── Mobile variant — inside full-screen drawer ── */
+.lang-dropdown--mobile {
+  width: 100%;
+  margin-top: 20px;
+}
+
+.lang-dropdown--mobile .lang-dropdown__trigger {
+  width: 100%;
+  height: 52px;
+  padding: 0 18px;
+  border-radius: 14px;
+  justify-content: space-between;
+  font-size: 15px;
+  background: rgba(242, 246, 249, 0.09);
+  border-color: rgba(242, 246, 249, 0.18);
+  color: black;
+  box-shadow:
+    inset 0 1px 4px rgba(0, 0, 0, 0.28),
+    0 1px 8px rgba(0, 0, 0, 0.06);
+}
+
+.lang-dropdown--mobile .lang-dropdown__trigger:hover {
+  background: rgba(242, 246, 249, 0.15);
+  border-color: rgba(242, 246, 249, 0.28);
+}
+
+.lang-dropdown--mobile .lang-dropdown__trigger.is-open {
+  background: rgba(242, 246, 249, 0.15);
+  border-color: rgba(117, 162, 199, 0.40);
+  box-shadow:
+    inset 0 1px 4px rgba(0, 0, 0, 0.28),
+    0 0 0 2px rgba(117, 162, 199, 0.25);
+}
+
+.lang-dropdown--mobile .lang-dropdown__flag { font-size: 20px; }
+.lang-dropdown--mobile .lang-dropdown__current { font-size: 15px; }
+.lang-dropdown--mobile .lang-dropdown__chevron { color: black; opacity: 0.7; }
+
+/* Mobile menu — static (not absolute), appears below trigger */
+.lang-dropdown--mobile .lang-dropdown__menu {
+  position: static;
+  margin-top: 6px;
+  min-width: 0;
+  background: rgba(32, 51, 77, 0.45);
+  border-color: rgba(242, 246, 249, 0.12);
+  border-radius: 14px;
+  box-shadow:
+    inset 0 1px 4px rgba(0, 0, 0, 0.30),
+    0 4px 20px rgba(0, 0, 0, 0.20);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+}
+
+.lang-dropdown--mobile .lang-dropdown__item        { color: var(--ivory); border-radius: 10px; }
+.lang-dropdown--mobile .lang-dropdown__item:hover  { background: rgba(242, 246, 249, 0.10); }
+.lang-dropdown--mobile .lang-dropdown__item.is-active { background: rgba(117, 162, 199, 0.18); }
+.lang-dropdown--mobile .lang-dropdown__item-native { color: var(--ivory); }
+.lang-dropdown--mobile .lang-dropdown__item-label  { color: rgba(242, 246, 249, 0.55); }
+.lang-dropdown--mobile .lang-dropdown__check       { color: var(--gold); }
+
+/* ── RTL nav text overrides ── */
+/* Arabic has no uppercase concept and needs Zain, not DM Mono */
+:root[dir="rtl"] .nav-link {
+  font-family: 'Zain', sans-serif;
+  font-size: 15px;
+  font-weight: 500;
+  letter-spacing: 0;
+  text-transform: none;
+}
+:root[dir="rtl"] .nav-link.active::after {
+  left: 0; right: 0;
+}
+:root[dir="rtl"] .nav-cta {
+  font-family: 'Zain', sans-serif;
+  font-size: 13px;
+  font-weight: 500;
+  letter-spacing: 0;
+  text-transform: none;
+  padding: 9px 16px;
+}
+:root[dir="rtl"] .nav-join {
+  font-family: 'Zain', sans-serif !important;
+  font-size: 13px !important;
+  font-weight: 600 !important;
+  letter-spacing: 0 !important;
+  text-transform: none !important;
+  padding: 9px 16px !important;
+  white-space: nowrap;
+}
+:root[dir="rtl"] .nav-dropdown__trigger {
+  font-family: 'Zain', sans-serif;
+  font-size: 15px;
+  font-weight: 500;
+  letter-spacing: 0;
+  text-transform: none;
+}
+:root[dir="rtl"] .nav-dropdown__item {
+  font-family: 'Zain', sans-serif;
+  font-size: 14px;
+  font-weight: 500;
+  letter-spacing: 0;
+  text-transform: none;
+  text-align: right;
+}
+
+/* ── RTL layout flips ── */
+:root[dir="rtl"] .split { flex-direction: row-reverse; }
+:root[dir="rtl"] .split.reverse { flex-direction: row; }
+:root[dir="rtl"] .nav-left { flex-direction: row; justify-content: start;}
+:root[dir="rtl"] .nav-right { flex-direction: row; justify-content: end;}
+:root[dir="rtl"] .hero-columns { flex-direction: row-reverse; }
+:root[dir="rtl"] .hero-meta-inner { flex-direction: row-reverse; }
+:root[dir="rtl"] .hero-meta-btns { flex-direction: row-reverse; justify-content: flex-end;}
+:root[dir="rtl"] .section-head { flex-direction: row-reverse; }
+:root[dir="rtl"] .footer-top { flex-direction: row-reverse; }
+:root[dir="rtl"] .footer-bottom { flex-direction: row-reverse; }
+:root[dir="rtl"] .benefit-item { flex-direction: row-reverse; justify-content: flex-end; }
+:root[dir="rtl"] .tier-cards { flex-direction: row-reverse; }
+:root[dir="rtl"] .membership-icons { flex-direction: row; }
+:root[dir="rtl"] .contact-grid { flex-direction: row-reverse; }
+:root[dir="rtl"] .contact-info-row { flex-direction: row; text-align: right; }
+:root[dir="rtl"] .contact-info-list { text-align: right; }
+:root[dir="rtl"] .page-hero-eyebrow { flex-direction: row;}
+:root[dir="rtl"] .about-membership-actions { flex-direction: row; }
+:root[dir="rtl"] .cta-actions { flex-direction: row; }
+:root[dir="rtl"] .page-hero-actions { flex-direction: row; }
+:root[dir="rtl"] .pricing-actions { flex-direction: row-reverse; }
+:root[dir="rtl"] .split-actions { flex-direction: row;}
+:root[dir="rtl"] .service-row { flex-direction: row-reverse; }
+:root[dir="rtl"] .socials { flex-direction: row-reverse; }
+:root[dir="rtl"] .contact-social-links { flex-direction: row; }
+:root[dir="rtl"] .tier-card-header { flex-direction: row; }
+:root[dir="rtl"] .nav-dropdown__menu {
+  left: 50%;
+  right: auto;
+  transform: translateX(-50%);
+}
+:root[dir="rtl"] .hero-eyebrow { flex-direction: row; }
+:root[dir="rtl"] .pull { text-align: right; }
+:root[dir="rtl"] .footer-col ul { text-align: right; }
+:root[dir="rtl"] .country-select__dropdown { left: auto; right: 0; }
+:root[dir="rtl"] .country-select__trigger { flex-direction: row-reverse; }
+:root[dir="rtl"] .phone-input-wrap { flex-direction: row; }
+:root[dir="rtl"] .app-badges { flex-direction: row; }
+/* Eyebrow dots in RTL */
+:root[dir="rtl"] .eyebrow { flex-direction: row-reverse; justify-content: flex-end; }

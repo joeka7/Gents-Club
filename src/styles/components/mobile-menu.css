@@ -1,0 +1,149 @@
+/* ===== Navigation — hamburger ===== */
+.nav-hamburger {
+  display: none;
+  width: 35px;
+  height: 44px;
+  align-items: center;
+  justify-content: center;
+  background: none;
+  border: none;
+  cursor: pointer;
+  color: var(--ink);
+  flex-shrink: 0;
+  padding: 0;
+  -webkit-tap-highlight-color: transparent;
+  margin-inline-start: 8px;
+}
+.nav.transparent .nav-hamburger { color: var(--ivory); }
+
+/* ===== Navigation — mobile kinetic full-screen menu ===== */
+/* Hidden by default; GSAP toggles display on open/close. */
+.mm-root {
+  display: none;
+  position: fixed;
+  inset: 0;
+  z-index: 99;
+  overflow: hidden;
+}
+
+/* Backdrop — click target for closing */
+.mm-overlay {
+  position: absolute;
+  inset: 0;
+  background: rgba(32, 51, 77, 0.5);
+  visibility: hidden;
+}
+
+/* Sliding shell that carries every layer. Full-bleed for the slide animation,
+   which is why there is no exposed backdrop to dismiss on: the close button,
+   the links/CTAs and Escape are the close paths. */
+.mm-content {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+}
+
+/* Animated background layers */
+.mm-panel {
+  position: absolute;
+  inset: 0;
+  will-change: transform;
+}
+.mm-panel--smoke { z-index: 0; background: var(--ink); }
+.mm-panel--smoke .smoke-canvas {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+.mm-panel--ink  { z-index: 1; background: #000000; opacity: 0.42; }
+
+/* Menu body — sits above every panel, clears the fixed header */
+.mm-nav {
+  position: relative;
+  z-index: 3;
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  /* Centre the two groups as one composition. `space-between` used to throw
+     every spare pixel into a single gap between the links and the CTAs —
+     ~400px of dead space on a tall phone. */
+  justify-content: space-between;
+  padding: calc(var(--nav-h) + var(--sp-5)) var(--gutter) var(--sp-7);
+  overflow-y: auto;
+  overscroll-behavior: contain;
+  -webkit-overflow-scrolling: touch;
+}
+
+/* Navigation group — rhythm comes from .mm-link's row padding */
+.mm-links { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: 30px; padding-top: 60px;}
+
+/* Each row clips its link so the reveal slides out from behind the edge */
+.mm-link-row { overflow: hidden; }
+
+.mm-link {
+  display: block;
+  width: 100%;
+  /* Row padding supplies the list rhythm and the tap target together: with
+     the display type's line-box leading this reads as ~23px between glyphs
+     and gives a ~54px touch row, so no extra flex gap is needed. */
+  padding: 3px 0;
+  text-align: left;
+  font-family: var(--font-display);
+  font-weight: 300;
+  font-size: clamp(38px, 11vw, 64px);
+  line-height: 1.12;
+  letter-spacing: -0.01em;
+  color: var(--ivory);
+  background: none;
+  border: none;
+  cursor: pointer;
+  -webkit-tap-highlight-color: transparent;
+}
+.mm-link-inner {
+  display: block;
+  transform-origin: 0% 100%;
+  will-change: transform;
+  transition: color 0.3s ease;
+  font-weight: 500;
+}
+.mm-link.is-active .mm-link-inner { font-style: italic; color: var(--gold-soft); }
+.mm-link:focus-visible { outline: none; }
+.mm-link:focus-visible .mm-link-inner { color: var(--gold); text-decoration: underline; text-underline-offset: 8px; }
+
+/* CTAs */
+.mm-actions {
+  /* A fixed, intentional separation from the nav list — scales a little with
+     viewport height but never becomes a dead zone. */
+  margin-top: clamp(var(--sp-6), 6vh, var(--sp-7));
+  display: flex;
+  flex-direction: column;
+  gap: var(--sp-3);
+}
+.mm-action { width: 100%; justify-content: center; }
+.mm-actions .btn-solid { background: var(--ivory); color: var(--ink); border-color: var(--ivory); }
+.mm-actions .btn-solid:hover { background: var(--oxblood); border-color: var(--oxblood); color: var(--ivory); }
+.mm-actions .btn-gold:hover { background: var(--ivory); border-color: var(--ivory); color: var(--ink); }
+
+.mm-footer { margin-top: var(--sp-5); }
+
+/* RTL — mirror text alignment and the reveal origin */
+:root[dir="rtl"] .mm-link { text-align: right; }
+:root[dir="rtl"] .mm-link-inner { transform-origin: 100% 100%; }
+
+/* Short viewports — anchor to the top so tall menus stay reachable */
+@media (max-height: 600px) {
+  .mm-nav { justify-content: flex-start; }
+  .mm-link { font-size: clamp(28px, 7vh, 40px); }
+}
+
+/* Users who prefer less motion still get a usable menu */
+@media (prefers-reduced-motion: reduce) {
+  .mm-panel, .mm-link-inner { will-change: auto; }
+  /* A continuously scrolling marquee is the kind of motion this setting is
+     meant to stop; the text stays fully readable in place. */
+  .marquee-track { animation: none; will-change: auto; }
+}

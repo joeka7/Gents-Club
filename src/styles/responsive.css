@@ -1,0 +1,252 @@
+/* ================================================================
+   BREAKPOINT: 768px — mobile-first nav + hero stack
+   ================================================================ */
+@media (max-width: 768px) {
+  /* Marquee — the track travels a fixed pixel distance, so on a narrow screen
+     the same 40s reads as sluggish. Shortening the duration speeds it up
+     without touching the design; transform-only animation keeps it smooth. */
+  .marquee-track { --marquee-duration: 15s; }
+
+  /* Navigation — mobile: logo (left) + hamburger (right) only */
+  .nav-left { display: none; }
+  .nav-right .nav-cta,
+  .nav-right .nav-join { display: none; }
+
+  /* Language switcher + hamburger read as one control group on the right. */
+  .nav-right { gap: 6px; }
+  /* Anchor the panel to the controls' inline-end so it can't leave the
+     viewport on a 320px screen. Overrides the desktop pixel nudges, which
+     assume the switcher sits mid-header rather than at the edge. */
+  :root[dir="ltr"] .lang-dropdown__menu,
+  :root[dir="rtl"] .lang-dropdown__menu {
+    left: auto;
+    right: auto;
+    inset-inline-end: 0;
+    min-width: min(210px, calc(100vw - 2 * var(--gutter)));
+  }
+  :root[dir="ltr"] .lang-dropdown__menu { transform-origin: top right; }
+  :root[dir="rtl"] .lang-dropdown__menu { transform-origin: top left; }
+  .nav-hamburger { display: flex; justify-content: flex-end;}
+  /* Restore nav-inner to flex so logo + hamburger sit at opposite ends */
+  .nav-inner { display: flex; justify-content: space-between; }
+  .nav-mark  { order: unset; flex-shrink: 0; margin-right: unset; }
+  .nav-right { flex: unset; }
+
+  /* Hero — single column, hide model image */
+  .hero-columns { grid-template-columns: 1fr; }
+  .hero-model { display: none; }
+  .hero-meta { margin-top: 20px; }
+  .hero-inner { padding-bottom: 28px; }
+
+  /* Page-hero sections (About, ForAdults, ForStudents) */
+  .page-hero { min-height: 56vh; }
+  .page-hero-body {
+    padding-top: calc(var(--nav-h) + 28px);
+    padding-bottom: 36px;
+  }
+
+  /* About hero (MembershipPage) */
+  .about-hero {
+    padding-top: calc(var(--nav-h) + 48px);
+    padding-bottom: 48px;
+  }
+  .about-hero h1 { margin-bottom: 28px; }
+
+  /* Membership tier cards */
+  .tier-cards { grid-template-columns: 1fr; }
+
+  /* Modals */
+  .modal-back { padding: 12px; }
+  .modal-body { padding: 32px 20px; }
+
+  /* Booking shell */
+  .booking-shell { padding: 20px; }
+  .booking-content { padding: 24px 20px; min-height: auto; }
+
+  /* Gallery press grid */
+  .press-grid { grid-template-columns: 1fr 1fr; gap: 24px; }
+  .gallery-press-section { padding: clamp(48px, 8vw, 80px) 0; }
+
+  /* Footer */
+  .footer { padding: 64px 0 28px; }
+}
+
+/* ================================================================
+   BREAKPOINT: 480px — small phones
+   ================================================================ */
+@media (max-width: 480px) {
+  /* Horizontal gutter — 20px read too wide on phones; 15px is the balance.
+     Every .container, .hero-inner and .page-hero-body reads this variable, so
+     overriding it here retightens all sections site-wide in one place. Above
+     480px the clamp() keeps the fluid tablet/desktop spacing untouched. */
+  :root { --gutter: 15px; }
+
+  /* Typography scale-down */
+  h1.display { font-size: clamp(36px, 11vw, 56px); }
+  h2.display { font-size: clamp(28px, 9vw, 40px); }
+  h3.display { font-size: clamp(22px, 6vw, 32px); }
+
+  /* Hero meta */
+  .hero-meta-inner { padding-top: 20px; gap: 16px; }
+
+  /* Section spacing */
+  .section { padding: clamp(48px, 8vw, 144px) 0; }
+  .section-head { padding-bottom: 24px; margin-bottom: 36px; }
+  .section-cta-center { margin-bottom: 48px; }
+
+  /* Service rows — flex stack for add-on lists */
+  .service-row {
+    display: flex;
+    flex-wrap: wrap;
+    column-gap: 12px;
+    row-gap: 4px;
+    padding: 20px 0;
+    align-items: flex-start;
+  }
+  .service-row .num {
+    width: 28px;
+    flex-shrink: 0;
+    display: flex;
+    align-items: flex-start;
+    padding-top: 2px;
+    grid-row: unset;
+  }
+  .service-row .name {
+    flex: 1;
+    min-width: 0;
+    font-size: clamp(14px, 4vw, 18px);
+  }
+  .service-row .price-block {
+    width: 100%;
+    padding-left: 40px;
+    text-align: left;
+    margin-top: 2px;
+  }
+
+  /* Pricing CTA */
+  .section-pricing { padding: clamp(40px, 8vw, 96px) 0; }
+  .pricing-amount { font-size: clamp(48px, 14vw, 80px); }
+  .pricing-inner { padding: 0 4px; }
+
+  /* Tier cards */
+  .tier-card-body { padding: 24px 20px; }
+  .tier-card-price-num { font-size: 36px; }
+  .tier-card-header { flex-wrap: wrap; }
+
+  /* Contact form */
+  .contact-form-footer {
+    flex-direction: column;
+    gap: 20px;
+    align-items: flex-start;
+  }
+  .contact-success { padding: 36px 20px; }
+  .contact-success-mark { font-size: 56px; }
+  .contact-success-title { font-size: 28px; }
+
+  /* Booking flow */
+  .booking-shell { padding: 16px 12px; }
+  .booking-content { padding: 20px 16px; min-height: auto; }
+  .booking-steps::before { display: none; }
+  .step { padding: 0 4px; }
+  .step .lbl { font-size: 8px; }
+
+  /* Modal */
+  .modal-back { padding: 8px; }
+  .modal-body { padding: 24px 16px; }
+  .modal h3 { font-size: 28px; }
+  .modal .meta-pills { flex-wrap: wrap; gap: 8px; }
+
+  /* Pull quote */
+  .pull .mark { font-size: 40px; }
+  .pull blockquote { font-size: clamp(20px, 5.5vw, 28px); }
+
+  /* Footer */
+  .footer-logo-img { height: 72px; }
+  .footer-brand .mark { font-size: 28px; }
+
+  /* Stats */
+  .stat { padding: 32px 16px; }
+
+  /* App section */
+  .app-device img { max-height: 300px; }
+  .app-badges { gap: 12px; }
+  .app-badges img { height: 36px; }
+  .app-badges img:last-of-type { height: 52px; }
+
+  /* Page-hero */
+  .page-hero { min-height: 50vh; }
+  .page-hero-body {
+    padding-top: calc(var(--nav-h) + 20px);
+    padding-bottom: 28px;
+  }
+
+  /* About hero */
+  .about-hero {
+    padding-top: calc(var(--nav-h) + 36px);
+    padding-bottom: 40px;
+  }
+  .about-hero .meta-row { gap: 20px; padding-top: 24px; }
+
+  /* Values grid spacing */
+  .value-num { font-size: 40px; margin-bottom: 16px; }
+  .value-title { font-size: 22px; }
+
+  /* Membership icons */
+  .membership-icons { gap: 16px; flex-wrap: wrap; }
+  .membership-icon-item img { height: 52px; }
+
+  /* Gallery press */
+  .press-grid { grid-template-columns: 1fr 1fr; gap: 20px; }
+  .press-title { font-size: 18px; }
+
+  /* Nav logo */
+  .nav-logo-img { height: 60px; }
+}
+
+/* ================================================================
+   BREAKPOINT: 375px — very small phones (320px – 375px)
+   ================================================================ */
+@media (max-width: 375px) {
+  /* Stack all CTA / action button groups */
+  .hero-meta-btns,
+  .page-hero-actions,
+  .cta-actions,
+  .pricing-actions,
+  .split-actions,
+  .about-membership-actions { flex-direction: column; gap: 10px; }
+
+  .hero-meta-btns .btn,
+  .page-hero-actions .btn,
+  .cta-actions .btn,
+  .pricing-actions .btn,
+  .split-actions .btn,
+  .about-membership-actions .btn { width: 100%; justify-content: center; }
+
+  /* Membership icons wrap tighter */
+  .membership-icons { gap: 10px; }
+  .membership-icon-item img { height: 44px; }
+
+  /* Gallery press: single column */
+  .press-grid { grid-template-columns: 1fr; }
+
+  /* Testimonial sizing */
+  .testimonial-quote { font-size: 28px; }
+  .testimonial-text { font-size: 16px; }
+
+  /* Section head number */
+  .section-head .meta .num { font-size: 10px; }
+
+  /* Footer bottom copyright word-break */
+  .footer-bottom { font-size: 9px; text-align: center; }
+
+  /* Stat values on small screens */
+  .stat-value { font-size: clamp(36px, 10vw, 56px); }
+
+  /* Booking steps: allow wrap on tiny screens */
+  .booking-steps {
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 12px;
+  }
+  .booking-steps::before { display: none; }
+}

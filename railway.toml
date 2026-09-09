@@ -1,0 +1,10 @@
+[build]
+# The server's runtime deps (express, cors, dotenv, nodemailer) are declared in
+# the root package.json, so a plain root install is sufficient for `npm start`.
+# server/package.json declares the same four for running the API standalone;
+# installing it too is harmless and keeps that path working.
+installCommand = "npm ci && npm ci --prefix server"
+buildCommand = "npm run build"
+
+[deploy]
+startCommand = "npm run start"

@@ -1,0 +1,448 @@
+/* ===== Hero (Home) ===== */
+.hero {
+  position: relative;
+  min-height: 100vh;
+  background: var(--ink);
+  color: var(--ivory);
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+}
+@media (max-width: 767px) {
+  .hero {
+    min-height: 95.5vh;
+  }
+}
+.hero-media {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+}
+.hero-media::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(180deg, rgba(32, 51, 77,0.25) 0%, rgba(32, 51, 77,0.1) 40%, rgba(32, 51, 77,0.85) 100%);
+  pointer-events: none;
+}
+.hero-inner {
+  position: relative;
+  z-index: 2;
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  padding-top: calc(var(--nav-h) + 32px);
+  padding-bottom: 48px;
+}
+.hero-inner::after {
+  content: "";
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 260px;
+  background: linear-gradient(to top, rgba(32, 51, 77,0.95) 0%, rgba(32, 51, 77,0.4) 60%, transparent 100%);
+  pointer-events: none;
+  z-index: 0;
+}
+.hero-columns {
+  flex: 1;
+  display: grid;
+  grid-template-columns: 2fr 1fr;
+  align-items: end;
+  gap: 0;
+}
+.hero-headline {
+  align-self: flex-end;
+  position: relative;
+  z-index: 1;
+  padding-bottom: 0;
+}
+.hero-model {
+  height: clamp(380px, 62vh, 700px);
+  overflow: hidden;
+  align-self: end;
+  z-index: 0;
+}
+.hero-model img {
+  position: absolute;
+  width: 40%;
+  height: 80%;
+  object-fit: contain;
+  object-position: left bottom;
+  display: block;
+  bottom: 0;
+
+}
+:root[dir="rtl"] .hero-model img {
+  object-position: right top;
+}
+@media (max-width: 1100px) {
+  .hero-model img {
+    width: 80%;
+    object-position: center bottom;
+  }
+}
+
+.hero-headline h1 {
+  font-family: var(--font-display);
+  color: var(--ivory);
+  font-size: clamp(60px, 10vw, 170px);
+  font-weight: 300;
+  line-height: 0.92;
+  letter-spacing: -0.015em;
+}
+:root[dir="rtl"] .hero-headline h1 {
+  font-size: 120px;
+  line-height: 1.3em;
+}
+@media (max-width: 767px) {
+  :root[dir="rtl"] .hero-headline h1 {
+    font-size: 50px;
+  }
+}
+.hero-headline h1 em {
+  font-family: var(--font-display);
+  color: var(--gold-soft);
+  font-weight: 300;
+  font-style: italic;
+}
+.hero-meta {
+  width: 100%;
+  border-top: 1px solid rgba(242, 246, 249,0.18);
+  margin-top: 56px;
+  position: relative;
+  z-index: 1;
+}
+.hero-meta-inner {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr auto;
+  gap: 48px;
+  align-items: end;
+  padding-top: 48px;
+  padding-bottom: 0;
+}
+.hero-meta-item .label {
+  font-family: var(--font-mono);
+  font-size: 10px;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: rgba(242, 246, 249,0.55);
+  margin-bottom: 8px;
+}
+.hero-meta-item .value {
+  font-family: var(--font-display);
+  font-size: 22px;
+  color: var(--ivory);
+}
+
+/* Marquee (announcement) */
+.marquee {
+  background: var(--ink);
+  color: var(--ivory);
+  padding: 14px 0;
+  overflow: hidden;
+  border-top: 1px solid rgba(242, 246, 249,0.1);
+  border-bottom: 1px solid rgba(242, 246, 249,0.1);
+}
+.marquee-track {
+  display: flex;
+  /* Size to the content, not the viewport. As a plain block-level flex box the
+     track was capped at the parent's width and both copies were shrunk to fit,
+     so translateX(-50%) moved half a *viewport* rather than one copy — leaving
+     a trailing empty area at wide widths. */
+  width: max-content;
+  /* No gap here: each copy carries its own trailing separator spacing, so the
+     two halves are identical and translateX(-50%) is exactly one copy — the
+     loop repeats with no jump. A gap here would make -50% land half a gap
+     short every cycle. */
+  animation: marquee var(--marquee-duration, 40s) linear infinite;
+  white-space: nowrap;
+  will-change: transform;
+  font-family: var(--font-mono);
+  font-size: 11px;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+}
+.marquee-group {
+  display: inline-flex;
+  align-items: center;
+  gap: 64px;
+  /* Trailing spacing lives inside the copy so every copy is identical and the
+     seam between them matches the spacing within them. */
+  padding-right: 64px;
+  /* Never shrink or stretch: each copy keeps its intrinsic width, so all three
+     are exactly equal and the 1/3 shift lands precisely on a copy boundary. */
+  flex: 0 0 auto;
+}
+:root[dir="rtl"] .marquee-group { padding-right: 0; padding-left: 64px; }
+.marquee-track .sep { color: var(--gold); }
+@keyframes marquee {
+  /* Exactly one copy, derived from the copy count the component renders, so
+     the shift always lands precisely on a copy boundary. */
+  to { transform: translateX(calc(-100% / var(--marquee-copies, 4))); }
+}
+:root[dir="rtl"] .marquee-track {
+  animation-direction: reverse;
+  font-family: 'Zain', sans-serif;
+  font-size: 15px;
+  letter-spacing: 0;
+  text-transform: none;
+}
+
+/* ===== Section header (editorial) ===== */
+.section-head {
+  display: grid;
+  grid-template-columns: 1fr 2fr;
+  gap: 64px;
+  align-items: end;
+  padding-bottom: 56px;
+  border-bottom: 1px solid var(--line);
+  margin-bottom: 72px;
+}
+.section-head .meta { padding-top: 8px; }
+.section-head .meta .num {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  letter-spacing: 0.22em;
+  color: var(--gold);
+  margin-bottom: 16px;
+}
+.section-head .lede {
+  font-size: 16px;
+  line-height: 1.6;
+  color: var(--ink-soft);
+  font-weight: 300;
+  max-width: 56ch;
+}
+/* `.section-head` itself already spans the container, but the 56ch clamp made
+   the lede ~287px narrower than its 2fr cell, so the copy stopped short of the
+   container's right edge while the heading beside it reached the left edge.
+   The cell is itself a comfortable measure on desktop, so letting the lede fill
+   it aligns both ends of the row with the container.
+   Below 961px `.section-head` collapses to one full-width column (see
+   responsive-mid.css) and the clamp still limits line length there. */
+@media (min-width: 961px) {
+  .section-head .lede { max-width: none; }
+}
+
+/* ===== Service cards ===== */
+.services-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 32px;
+}
+.service {
+  position: relative;
+}
+.service-img {
+  aspect-ratio: 3 / 4;
+  background: var(--bone);
+  overflow: hidden;
+  position: relative;
+  margin-bottom: 24px;
+}
+.service-img image-slot {
+  transition: transform 0.7s cubic-bezier(0.2, 0.8, 0.2, 1);
+}
+.service:hover .service-img image-slot { transform: scale(1.04); }
+.service-img .num {
+  position: absolute;
+  top: 16px; left: 16px;
+  z-index: 2;
+  font-family: var(--font-mono);
+  font-size: 10px;
+  letter-spacing: 0.22em;
+  color: var(--ivory);
+  background: rgba(32, 51, 77,0.5);
+  padding: 6px 10px;
+  border-radius: 999px;
+  backdrop-filter: blur(8px);
+}
+.service-meta {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  gap: 16px;
+  margin-bottom: 8px;
+}
+.service-name {
+  font-family: var(--font-display);
+  font-size: 28px;
+  font-weight: 400;
+  line-height: 1.1;
+}
+.service-price {
+  font-family: var(--font-mono);
+  font-size: 12px;
+  color: var(--taupe);
+  letter-spacing: 0.06em;
+  white-space: nowrap;
+}
+.service-desc {
+  font-size: 14px;
+  color: var(--ink-soft);
+  line-height: 1.55;
+  max-width: 38ch;
+}
+.service-arrow {
+  margin-top: 16px;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-family: var(--font-mono);
+  font-size: 10px;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: var(--oxblood);
+  border-bottom: 1px solid currentColor;
+  padding-bottom: 2px;
+}
+
+/* ===== Split (image + text editorial) ===== */
+.split {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 96px;
+  align-items: center;
+}
+.split.reverse > :first-child { order: 2; }
+.split-text { max-width: 48ch; }
+/* In the two-column grid each cell is already a comfortable measure (~614px at
+   1440px), so the 48ch clamp only leaves the text box ~160px narrower than its
+   cell. That slack sat outside the box: as the left column it widened the gap
+   between the columns' content to ~256px, and as the right column it stopped
+   the copy short of the container edge. Letting the text fill its cell on
+   desktop removes the slack, so the columns both meet the container edges and
+   the visual gap equals the declared 96px.
+   The clamp still applies at 960px and below, where `.split` collapses to one
+   full-width column (see responsive-mid.css) and an unclamped line would run
+   the full container width. */
+@media (min-width: 961px) {
+  .split > .split-text { max-width: none; }
+}
+.split-text .display { margin-bottom: 28px; }
+.split-text p { color: black; margin-bottom: 18px; font-size: 16px; line-height: 1.7; font-weight: 300; }
+.split-image {
+  aspect-ratio: 4 / 5;
+  background: var(--bone);
+  overflow: hidden;
+  position: relative;
+}
+.split-image .stamp {
+  position: absolute;
+  bottom: 24px; left: 24px;
+  background: var(--ivory);
+  padding: 14px 18px;
+  font-family: var(--font-mono);
+  font-size: 10px;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: var(--ink);
+  z-index: 2;
+}
+.split-image .stamp .gold { color: var(--gold); }
+
+/* ===== Stat strip ===== */
+.stat-strip {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 0;
+  border-top: 1px solid var(--line);
+  border-bottom: 1px solid var(--line);
+}
+.stat {
+  padding: 56px 32px;
+  border-right: 1px solid var(--line);
+  text-align: center;
+}
+.stat:last-child { border-right: none; }
+.stat .num {
+  font-family: var(--font-display);
+  font-size: clamp(48px, 5vw, 72px);
+  line-height: 1;
+  color: var(--ink);
+  margin-bottom: 12px;
+  font-weight: 300;
+}
+.stat .num em { color: var(--gold); font-style: italic; }
+.stat .label {
+  font-family: var(--font-mono);
+  font-size: 10px;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: var(--taupe);
+}
+
+/* ===== Pull quote ===== */
+.pull {
+  text-align: center;
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 32px 0;
+}
+.pull .mark {
+  font-family: var(--font-display);
+  font-style: italic;
+  color: var(--gold);
+  font-size: 56px;
+  line-height: 1;
+  margin-bottom: 24px;
+}
+.pull blockquote {
+  font-family: var(--font-display);
+  font-size: clamp(28px, 3.5vw, 48px);
+  line-height: 1.2;
+  font-weight: 300;
+  letter-spacing: -0.005em;
+  color: var(--ink);
+  margin-bottom: 32px;
+}
+.pull blockquote em { color: var(--oxblood); }
+.pull cite {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: var(--taupe);
+  font-style: normal;
+}
+
+/* ===== Journal grid (home) ===== */
+.journal-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 40px;
+}
+.journal-card { cursor: pointer; }
+.journal-img {
+  aspect-ratio: 4 / 5;
+  background: var(--bone);
+  margin-bottom: 20px;
+  overflow: hidden;
+}
+.journal-meta {
+  font-family: var(--font-mono);
+  font-size: 10px;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: var(--taupe);
+  margin-bottom: 12px;
+  display: flex;
+  gap: 16px;
+}
+.journal-meta .gold { color: var(--gold); }
+.journal-title {
+  font-family: var(--font-display);
+  font-size: 26px;
+  line-height: 1.15;
+  font-weight: 400;
+  margin-bottom: 10px;
+}
+.journal-card:hover .journal-title { color: var(--oxblood); }
+.journal-card p {
+  color: var(--ink-soft);
+  font-size: 14px;
+  line-height: 1.6;
+  max-width: 36ch;
+}

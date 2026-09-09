@@ -1,0 +1,75 @@
+/* ===== Service step (booking flow) ===== */
+.booking-shell {
+  background: var(--bone);
+  padding: 32px;
+  border-radius: 4px;
+  margin-top: 24px;
+}
+.booking-steps {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 32px;
+  position: relative;
+}
+.booking-steps::before {
+  content: "";
+  position: absolute;
+  top: 16px; left: 16px; right: 16px;
+  height: 1px;
+  background: var(--line);
+  z-index: 0;
+}
+.step {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+  position: relative;
+  z-index: 1;
+  background: var(--bone);
+  padding: 0 12px;
+}
+.step .dot {
+  width: 32px; height: 32px;
+  border-radius: 50%;
+  border: 1px solid var(--line);
+  background: var(--ivory);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: var(--font-mono);
+  font-size: 11px;
+  color: var(--taupe);
+}
+.step.done .dot, .step.active .dot {
+  background: var(--ink);
+  color: var(--ivory);
+  border-color: var(--ink);
+}
+.step.active .dot { background: var(--gold); border-color: var(--gold); color: var(--ink); }
+.step .lbl {
+  font-family: var(--font-mono);
+  font-size: 9px;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--ink-soft);
+}
+.time-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 8px;
+}
+.time-chip {
+  padding: 12px;
+  background: var(--ivory);
+  border: 1px solid var(--line);
+  font-family: var(--font-mono);
+  font-size: 12px;
+  text-align: center;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+.time-chip:hover { border-color: var(--ink); }
+.time-chip.selected {
+  background: var(--ink); color: var(--ivory); border-color: var(--ink);
+}
