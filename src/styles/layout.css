@@ -80,10 +80,10 @@
   aspect-ratio: 4/3;
   overflow: hidden;
 }
-.tier-card-img img { width: 100%; height: 100%; object-fit: cover; display: block; }
+.tier-card-img img { width: 100%; height: 100%; object-fit: cover; display: block; object-position: top;}
 .tier-card-body { padding: 40px 36px; }
 .tier-card-header { display: flex; align-items: center; gap: 16px; margin-bottom: 16px; }
-.tier-card-header img { height: 40px; object-fit: contain; }
+.tier-card-header img { height: 70px; object-fit: contain; }
 .tier-card-age {
   font-family: var(--font-mono);
   font-size: 10px;

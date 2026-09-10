@@ -10,7 +10,7 @@ import membershipImg from '../assets/imgs/Deep Hydration.webp';
 import joinImg from '../assets/imgs/Club Membership.webp';
 import forAdultsImg from '../assets/imgs/For Adults.webp';
 import studentsIconImg from '../assets/imgs/students-icon.png';
-import leadesIconImg from '../assets/imgs/leades-icon.png';
+import adultsIconImg from '../assets/imgs/adults-icon.png';
 import giftImg from '../assets/imgs/gift.png';
 import anniversaryImg from '../assets/imgs/anniversary.png';
 import appDeviceImg from '../assets/imgs/responsive_device-i-phone14.webp';
@@ -43,7 +43,7 @@ export function HomePage() {
               </h1>
             </div>
             <div className="hero-model">
-              <img src={mainModelImg} alt="Aljameela Club Member" />
+              <img src={mainModelImg} alt="Gents Facial Club Member" />
             </div>
           </div>
           <div className="hero-meta">
@@ -80,7 +80,7 @@ export function HomePage() {
         <div className="container">
           <div className="split">
             <div className="split-image">
-              <img src={sec1Img} alt="Al Jameela Club" />
+              <img src={sec1Img} alt="Gents Facial Club" />
               <div className="stamp">{t.home.stamp(new Date().getFullYear())}</div>
             </div>
             <div className="split-text">
@@ -152,7 +152,7 @@ export function HomePage() {
               </ul>
             </div>
             <div className="split-image">
-              <img src={joinImg} alt="Join Aljameela Club" />
+              <img src={joinImg} alt="Join Gents Facial Club" />
               <div className="stamp">
                 <img src={anniversaryImg} alt="1 Year" />
               </div>
@@ -177,7 +177,7 @@ export function HomePage() {
               </div>
               <div className="tier-card-body">
                 <div className="tier-card-header">
-                  <img src={leadesIconImg} alt="" />
+                  <img src={adultsIconImg} alt="" />
                   <div>
                     <div className="tier-card-age">{t.home.adultsAge}</div>
                     <div className="tier-card-name">{t.home.adultsName}</div>
@@ -275,7 +275,7 @@ export function HomePage() {
               </div>
             </div>
             <div className="app-device">
-              <img src={appDeviceImg} alt="Aljameela App" />
+              <img src={appDeviceImg} alt="Gents App" />
             </div>
           </div>
         </div>
@@ -290,10 +290,10 @@ export function HomePage() {
           </h2>
           <p className="cta-body">{t.home.ctaBody}</p>
           <div className="pricing-actions">
-            <a className="btn btn-gold" href="https://everlastwellness.store/product/aljameela-club/" target="_blank" rel="noopener noreferrer">
+            <a className="btn btn-gold" href="https://everlastwellness.store/product/gents-facial-club/" target="_blank" rel="noopener noreferrer">
               {t.home.ctaAdults(adultsPrice)} <span className="arrow"></span>
             </a>
-            <a className="btn btn-outline-ivory" href="https://everlastwellness.store/product/aljameela-club/" target="_blank" rel="noopener noreferrer">
+            <a className="btn btn-outline-ivory" href="https://everlastwellness.store/product/gents-facial-club/" target="_blank" rel="noopener noreferrer">
               {t.home.ctaStudents(studentsPrice)} <span className="arrow"></span>
             </a>
           </div>

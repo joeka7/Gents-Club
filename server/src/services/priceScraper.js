@@ -9,8 +9,8 @@ const PRICE_REFRESH_MS = 7 * 24 * 60 * 60 * 1000; // 1 Week
 
 async function fetchAndCachePrice() {
   try {
-    const r = await fetch('https://everlastwellness.store/product/aljameela-club/', {
-      headers: { 'User-Agent': 'Mozilla/5.0 (compatible; AljameelaBot/1.0)', Accept: 'text/html' },
+    const r = await fetch('https://everlastwellness.store/product/gents-facial-club/', {
+      headers: { 'User-Agent': 'Mozilla/5.0 (compatible; GentsBot/1.0)', Accept: 'text/html' },
     });
     if (!r.ok) throw new Error(`HTTP ${r.status}`);
     const html = await r.text();

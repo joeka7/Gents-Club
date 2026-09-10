@@ -15,7 +15,7 @@ export function AboutPage() {
       {/* HERO */}
       <section id="about-hero" className="page-hero">
         <div className="page-hero-media">
-          <img src={heroImg} alt="Aljameela Club" className="hero-img-offset" />
+          <img src={heroImg} alt="Gents Facial Club" className="hero-img-offset" />
           <div className="page-hero-overlay" />
         </div>
         <div className="page-hero-body">
@@ -23,7 +23,7 @@ export function AboutPage() {
             <span className="dot"></span>{t.about.eyebrow}
           </div>
           <h1 className="display page-hero-title">
-            {t.about.heroL1}<br /><em className="gold-em">{t.about.heroEm}</em>.
+            {t.about.heroL1}<br /><em className="gold-em">{t.about.heroEm}</em>
           </h1>
         </div>
       </section>
@@ -40,7 +40,7 @@ export function AboutPage() {
               <p>{t.about.storyP3}</p>
             </div>
             <div className="split-image">
-              <img src={ewmcImg} alt="Aljameela Club — Al Bateen, Abu Dhabi" />
+              <img src={ewmcImg} alt="Gents Facial Club — Al Bateen, Abu Dhabi" />
               <div className="stamp">{t.about.stamp}</div>
             </div>
           </div>
@@ -99,10 +99,10 @@ export function AboutPage() {
               <p>{t.about.membershipsP1}</p>
               <p>{t.about.membershipsP2}</p>
               <div className="about-membership-actions">
-                <a className="btn btn-gold" href="https://everlastwellness.store/product/aljameela-club/" target="_blank" rel="noopener noreferrer">
+                <a className="btn btn-gold" href="https://everlastwellness.store/product/gents-facial-club/" target="_blank" rel="noopener noreferrer">
                   {t.about.forAdultsBtn(adultsPrice)} <span className="arrow"></span>
                 </a>
-                <a className="btn" href="https://everlastwellness.store/product/aljameela-club/" target="_blank" rel="noopener noreferrer">
+                <a className="btn" href="https://everlastwellness.store/product/gents-facial-club/" target="_blank" rel="noopener noreferrer">
                   {t.about.forStudentsBtn(studentsPrice)} <span className="arrow"></span>
                 </a>
               </div>

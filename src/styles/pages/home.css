@@ -77,9 +77,10 @@
 :root[dir="rtl"] .hero-model img {
   object-position: right top;
 }
-@media (max-width: 1100px) {
+@media (max-width: 1500px) {
   .hero-model img {
-    width: 80%;
+    width: 75%;
+    right: -200px;
     object-position: center bottom;
   }
 }

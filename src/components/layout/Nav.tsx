@@ -256,7 +256,7 @@ export function Nav() {
 
         {/* ③ Buttons + lang dropdown + hamburger */}
         <div className="nav-right">
-          <a className="nav-join btn btn-solid" href="https://everlastwellness.store/product/aljameela-club/" target="_blank" rel="noopener noreferrer">
+          <a className="nav-join btn btn-solid" href="https://everlastwellness.store/product/gents-facial-club/" target="_blank" rel="noopener noreferrer">
             {t.nav.join}
           </a>
           <a className="nav-cta" onClick={() => go('contact')}>

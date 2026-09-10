@@ -4,7 +4,7 @@ import { useLang } from '../context/LanguageContext';
 import forAdultsImg from '../assets/imgs/for-adults.webp';
 import seniorImg from '../assets/imgs/beautiful-senior-woman-portrait-posing-chair_23-2148891744.jpg';
 import crownImg from '../assets/imgs/crown.png';
-import leadesIconImg from '../assets/imgs/leades-icon.png';
+import adultsIconImg from '../assets/imgs/adults-icon.png';
 import giftImg from '../assets/imgs/gift.png';
 import anniversaryImg from '../assets/imgs/anniversary.png';
 import treatment1Img from '../assets/imgs/RevitaPearl HydraDermabrassion.webp';
@@ -28,14 +28,14 @@ export function ForAdultsPage() {
         </div>
         <div className="page-hero-body">
           <div className="page-hero-eyebrow">
-            <img src={leadesIconImg} alt="" className="page-hero-icon" />
+            <img src={adultsIconImg} alt="" className="page-hero-icon" />
             <span className="page-hero-tag">{t.adults.heroTag}</span>
           </div>
           <h1 className="display page-hero-title">
             {t.adults.heroL1}<br /><em className="gold-em">{t.adults.heroEm}</em>
           </h1>
           <div className="page-hero-actions">
-            <a className="btn btn-gold" href="https://everlastwellness.store/product/aljameela-club/" target="_blank" rel="noopener noreferrer">
+            <a className="btn btn-gold" href="https://everlastwellness.store/product/gents-facial-club/" target="_blank" rel="noopener noreferrer">
               {t.adults.joinBtn(adultsPrice)} <span className="arrow"></span>
             </a>
             <a className="btn btn-outline-ivory" onClick={() => navigate('contact')}>
@@ -149,7 +149,7 @@ export function ForAdultsPage() {
           <div className="pricing-unit">{t.adults.pricingUnit}</div>
           <p className="pricing-desc">{t.adults.pricingDesc}</p>
           <div className="pricing-actions">
-            <a className="btn btn-gold" href="https://everlastwellness.store/product/aljameela-club/" target="_blank" rel="noopener noreferrer">
+            <a className="btn btn-gold" href="https://everlastwellness.store/product/gents-facial-club/" target="_blank" rel="noopener noreferrer">
               {t.adults.buyNow} <span className="arrow"></span>
             </a>
             <a className="btn btn-outline-ivory" onClick={() => navigate('contact')}>

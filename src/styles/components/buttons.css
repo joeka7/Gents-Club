@@ -27,7 +27,7 @@
   color: var(--ink);
   border-color: var(--gold);
 }
-.btn-gold:hover { background: var(--ink); color: var(--ivory); border-color: var(--ink); }
+.btn-gold:hover { background: #546d80; color: var(--ivory); border-color: #546d80 }
 .section-dark .btn-gold:hover {
   border-color: #75a2c7 !important;
 }

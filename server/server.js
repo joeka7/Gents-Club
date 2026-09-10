@@ -44,5 +44,5 @@ app.get('/{*path}', (_req, res) => res.sendFile(path.join(distPath, 'index.html'
 
 // ─── Start ────────────────────────────────────────────────────────────────────
 app.listen(PORT, () => {
-  console.log(`\n  ✦  Aljameela Club server running at http://localhost:${PORT}\n`);
+  console.log(`\n  ✦  Gents Facial Club server running at http://localhost:${PORT}\n`);
 });

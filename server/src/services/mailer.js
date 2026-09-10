@@ -38,7 +38,7 @@ async function sendEnquiry({ name, phone, email, message }) {
   const recipient = process.env.EMAIL_TO || 'customer.service@everlastwellness.com';
 
 const mailOptions = {
-  from:    `"Aljameela Club" <${process.env.EMAIL_USER}>`,
+  from:    `"Gents Facial Club" <${process.env.EMAIL_USER}>`,
   to:      recipient,
   replyTo: email,
   subject: `New Enquiry — ${name}`,
@@ -46,7 +46,7 @@ const mailOptions = {
   html: `
     <div style="font-family:'Helvetica Neue',Helvetica,Arial,sans-serif;max-width:600px;margin:0 auto;background:#f5f0e8;border:1px solid rgba(28,22,20,0.1);">
       <div style="padding:32px 40px;text-align:center;border-bottom:1px solid rgba(28,22,20,0.08);">
-        <img src="${LOGO_URL}" alt="Aljameela Club" style="height:72px;width:auto;display:block;margin:0 auto;" />
+        <img src="${LOGO_URL}" alt="Gents Facial Club" style="height:72px;width:auto;display:block;margin:0 auto;" />
         <div style="margin-top:12px;font-size:10px;letter-spacing:3px;text-transform:uppercase;color:#c4a875;">New Contact Form Enquiry</div>
       </div>
 
@@ -80,7 +80,7 @@ const mailOptions = {
 
       <div style="padding:20px 40px;text-align:center;border-top:1px solid rgba(28,22,20,0.08);">
         <div style="font-size:10px;color:#8a7a6b;letter-spacing:1px;">
-          &copy; ${new Date().getFullYear()} Aljameela Club &middot; Al Bateen, Abu Dhabi, UAE
+          &copy; ${new Date().getFullYear()} Gents Facial Club &middot; Al Bateen, Abu Dhabi, UAE
         </div>
       </div>
     </div>

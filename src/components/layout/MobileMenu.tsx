@@ -223,7 +223,7 @@ export function MobileMenu({ open, links, onClose, footer }: MobileMenuProps) {
             <a
               className="btn btn-solid mm-action"
               data-mm-fade
-              href="https://everlastwellness.store/product/aljameela-club/"
+              href="https://everlastwellness.store/product/gents-facial-club/"
               target="_blank"
               rel="noopener noreferrer"
             >

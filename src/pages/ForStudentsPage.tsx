@@ -34,7 +34,7 @@ export function ForStudentsPage() {
             {t.students.heroL1}<br /><em className="gold-em">{t.students.heroEm}</em>
           </h1>
           <div className="page-hero-actions">
-            <a className="btn btn-gold" href="https://everlastwellness.store/product/aljameela-club/" target="_blank" rel="noopener noreferrer">
+            <a className="btn btn-gold" href="https://everlastwellness.store/product/gents-facial-club/" target="_blank" rel="noopener noreferrer">
               {t.students.joinBtn(studentsPrice)} <span className="arrow"></span>
             </a>
             <a className="btn btn-outline-ivory" onClick={() => navigate('contact')}>
@@ -167,7 +167,7 @@ export function ForStudentsPage() {
           <div className="pricing-unit">{t.students.pricingUnit}</div>
           <p className="pricing-desc">{t.students.pricingDesc}</p>
           <div className="pricing-actions">
-            <a className="btn btn-gold" href="https://everlastwellness.store/product/aljameela-club/" target="_blank" rel="noopener noreferrer">
+            <a className="btn btn-gold" href="https://everlastwellness.store/product/gents-facial-club/" target="_blank" rel="noopener noreferrer">
               {t.students.buyNow} <span className="arrow"></span>
             </a>
             <a className="btn btn-outline-ivory" onClick={() => navigate('contact')}>

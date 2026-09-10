@@ -43,12 +43,12 @@ export function Footer() {
               <li><a href="mailto:customer.service@everlastwellness.com">customer.service@everlastwellness.com</a></li>
               <li><a href="tel:+971600551615">+971 600 551 615</a></li>
               <li><a onClick={go('contact')}>{t.footer.contact}</a></li>
-              <li><a href="https://everlastwellness.store/product/aljameela-club/" target="_blank" rel="noopener noreferrer">{t.footer.joinClub}</a></li>
+              <li><a href="https://everlastwellness.store/product/gents-facial-club/" target="_blank" rel="noopener noreferrer">{t.footer.joinClub}</a></li>
             </ul>
           </div>
         </div>
         <div className="footer-bottom">
-          <div>© {new Date().getFullYear()} Aljameela Facial Club · {t.footer.rights} · Al Bateen, Abu Dhabi</div>
+          <div>© {new Date().getFullYear()} Gents Facial Club · {t.footer.rights} · Al Bateen, Abu Dhabi</div>
           <div className="socials">
             <a href="https://www.snapchat.com/@everlastwmc" target="_blank" rel="noopener noreferrer">Snapchat</a>
             <a href="https://www.tiktok.com/@everlastwellness" target="_blank" rel="noopener noreferrer">TikTok</a>
