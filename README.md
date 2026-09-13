@@ -1,11 +1,11 @@
-# Aljameela Club
+# Gents Facial Club
 
-Official website for Aljameela Facial Club — a members' facial clinic in Al Bateen, Abu Dhabi. A React single-page application with an Express API that handles membership enquiries and keeps membership pricing in sync with the clinic's store.
+Official website for Gents Facial Club — a members' facial clinic in Al Bateen, Abu Dhabi. A React single-page application with an Express API that handles membership enquiries and keeps membership pricing in sync with the clinic's store.
 
 | | |
 | --- | --- |
-| **Production** | https://aljameelaclub.com/ |
-| **Frontend** | React 19 · TypeScript · Vite |
+| **Production Website** | https://gentsfacialclub.com/ |
+| **Frontend** | React 19 · TypeScript 6 · Vite 8 |
 | **Backend** | Node.js · Express 5 |
 | **Deployment** | Railway (`railway.toml`) |
 | **Status** | Production |
@@ -14,7 +14,7 @@ Official website for Aljameela Facial Club — a members' facial clinic in Al Ba
 
 ## Overview
 
-Aljameela Facial Club sells annual memberships for clinical facial treatments. The website presents the club, its treatment programmes, and its two membership plans, then routes interested visitors to either the external store or the enquiry form.
+Gents Facial Club sells annual memberships for clinical facial treatments. The website presents the club, its treatment programmes, and its two membership plans, then routes interested visitors to either the external store or the enquiry form.
 
 The primary user journey:
 
@@ -40,14 +40,40 @@ The full interface is available in five languages, with right-to-left layout for
 - **Cloudflare Turnstile** — CAPTCHA verified server-side before any email is sent
 - **SMTP email delivery** — formatted HTML enquiry emails via Nodemailer
 - **HTML escaping** — all user input escaped before interpolation into email markup
-- **Responsive design** — layouts tuned at 960px, 768px, 600px, 480px, and 375px
+- **Responsive design** — desktop-first cascade with overrides down to 360px
 - **WebGL smoke animation** — animated background on the home hero and mobile menu
 - **Animated mobile navigation** — full-screen GSAP-driven menu
 - **Client-side routing** — History API navigation with server-side deep-link support
 
 ---
 
-## Tech Stack
+## Pages
+
+| Path | Page | Purpose |
+| --- | --- | --- |
+| `/` | `HomePage` | Club introduction, treatments, membership overview, testimonials |
+| `/about` | `AboutPage` | About the club, its philosophy and facilities |
+| `/for-adults` | `ForAdultsPage` | Adults membership plan, services, add-ons and pricing |
+| `/for-students` | `ForStudentsPage` | Students membership plan, services, add-ons and pricing |
+| `/contact` | `ContactPage` | Enquiry form and clinic contact details |
+
+Unrecognised paths fall back to the home page.
+
+### Language-prefixed paths
+
+Non-English languages carry a prefix: `ar`, `ru`, `hi`, `zh`. English is unprefixed.
+
+```
+/about        →  English
+/ar/about     →  Arabic
+/zh/          →  Chinese home page
+```
+
+The router strips the prefix before resolving the route, so `/about` and `/ar/about` render the same page in different languages. Switching language rewrites the current URL in place without a navigation.
+
+---
+
+## Technologies Used
 
 | Layer | Technology |
 | --- | --- |
@@ -95,6 +121,18 @@ In development, Vite proxies `/api` to the Express server on port 3001, so both 
 
 ---
 
+## Localization / Languages
+
+**Supported languages:** English (default), Arabic, Russian, Hindi, Chinese.
+
+Each locale is a module under `src/i18n/locales/`, registered in `src/i18n/index.ts`. The `Translations` type is derived from the English locale, so all five stay structurally identical — adding a key to `en.ts` makes it required everywhere else at compile time.
+
+`LanguageContext` holds the active language, exposes the resolved translation object as `t`, and writes `lang` and `dir` onto `<html>` on every change. The selected language persists in `localStorage` and is also inferred from the URL prefix on first load.
+
+**Arabic RTL.** Selecting Arabic sets `dir="rtl"`, which activates the rules in `src/styles/rtl.css` and swaps the body and display typefaces to Zain. Layout mirroring is handled in that file; component code stays direction-agnostic.
+
+---
+
 ## Project Structure
 
 ```
@@ -114,19 +152,19 @@ In development, Vite proxies `/api` to the Express server on port 3001, so both 
 │
 └── src/
     ├── main.tsx               # React entry point
-    ├── App.tsx               # Providers + route-to-page mapping
-    ├── router/               # History API router and Route type
-    ├── context/              # LanguageContext (language, translations, direction)
-    ├── hooks/                # useProductPrice
+    ├── App.tsx                # Providers + route-to-page mapping
+    ├── router/                # History API router and Route type
+    ├── context/               # LanguageContext (language, translations, direction)
+    ├── hooks/                 # useProductPrice
     ├── i18n/
-    │   ├── index.ts          # Locale registry and shared types
-    │   └── locales/          # en · ar · ru · hi · zh
-    ├── pages/                # One component per route
+    │   ├── index.ts           # Locale registry and shared types
+    │   └── locales/           # en · ar · ru · hi · zh
+    ├── pages/                 # One component per route
     ├── components/
-    │   ├── layout/           # Nav · MobileMenu · Footer
-    │   └── ui/               # Marquee · SmokeBackground
-    ├── styles/               # CSS modules, imported through index.css
-    └── assets/imgs/          # Bundled imagery
+    │   ├── layout/            # Nav · MobileMenu · Footer
+    │   └── ui/                # Marquee · SmokeBackground
+    ├── styles/                # CSS files, imported through index.css
+    └── assets/imgs/           # Bundled imagery
 ```
 
 Two directories are worth understanding before making changes:
@@ -134,44 +172,6 @@ Two directories are worth understanding before making changes:
 **`src/styles/`** — `index.css` is an import manifest, not a stylesheet. Import order is cascade order, so moving an `@import` can change which rules win. Add new rules inside the relevant file rather than in the manifest.
 
 **`src/i18n/locales/`** — `en.ts` is the source of truth. Every other locale is typed against it, so a missing or misspelled key fails the type check rather than rendering blank.
-
----
-
-## Routes
-
-| Path | Page | Purpose |
-| --- | --- | --- |
-| `/` | `HomePage` | Club introduction, treatments, membership overview |
-| `/about` | `AboutPage` | About the club, its approach and facilities |
-| `/for-adults` | `ForAdultsPage` | Adults membership plan and pricing |
-| `/for-students` | `ForStudentsPage` | Students membership plan and pricing |
-| `/contact` | `ContactPage` | Enquiry form and clinic contact details |
-
-Unrecognised paths fall back to the home page.
-
-### Language-prefixed paths
-
-Non-English languages carry a prefix: `ar`, `ru`, `hi`, `zh`. English is unprefixed.
-
-```
-/about        →  English
-/ar/about     →  Arabic
-/zh/          →  Chinese home page
-```
-
-The router strips the prefix before resolving the route, so `/about` and `/ar/about` render the same page in different languages. Switching language rewrites the current URL in place without a navigation.
-
----
-
-## Internationalization
-
-**Supported languages:** English (default), Arabic, Russian, Hindi, Chinese.
-
-Each locale is a module under `src/i18n/locales/`, registered in `src/i18n/index.ts`. The `Translations` type is derived from the English locale, so all five stay structurally identical — adding a key to `en.ts` makes it required everywhere else at compile time.
-
-`LanguageContext` holds the active language, exposes the resolved translation object as `t`, and writes `lang` and `dir` onto `<html>` on every change. The selected language persists in `localStorage` and is also inferred from the URL prefix on first load.
-
-**Arabic RTL.** Selecting Arabic sets `dir="rtl"`, which activates the rules in `src/styles/rtl.css` and swaps the body and display typefaces to Zain. Layout mirroring is handled in that file; component code stays direction-agnostic.
 
 ---
 
@@ -213,7 +213,7 @@ Submits a membership enquiry.
 
 ### GET `/api/product-price`
 
-Returns the current membership prices.
+Returns the current membership prices as formatted strings, exactly as parsed from the store.
 
 ```json
 { "adults": "3.999", "students": "3.499" }
@@ -259,15 +259,15 @@ Read by `dotenv` from `server/.env`. None are safe to expose to the client.
 | `EMAIL_SECURE` | No | Set to `true` for implicit TLS. Defaults to `false` |
 | `TURNSTILE_SECRET_KEY` | Yes | Cloudflare Turnstile **secret** key, used for server-side verification |
 | `PORT` | No | HTTP port. Defaults to `3001` |
-| `CLIENT_ORIGIN` | Yes in production | Public site origin — set to `https://aljameelaclub.com` in the production environment. Added to the CORS allowlist and used to build the absolute logo URL in enquiry emails. Falls back to `http://localhost:5173` for CORS and `https://aljameelaclub.com` for the email logo, so configure it explicitly rather than relying on the defaults |
+| `CLIENT_ORIGIN` | Yes in production | Public site origin — set to `https://gentsfacialclub.com` in the production environment. Added to the CORS allowlist and used to build the absolute logo URL in enquiry emails. Falls back to `http://localhost:5173` for CORS, so configure it explicitly rather than relying on the default |
 
-The four variables marked required above are checked at startup. If any is missing — or still holds a placeholder beginning with `your-` — the server logs a warning and the contact endpoint returns a descriptive error rather than failing silently.
+The four email variables marked required above are checked at startup. If any is missing — or still holds a placeholder beginning with `your-` — the server logs a warning and the contact endpoint returns a descriptive error rather than failing silently.
 
 ---
 
-## Local Development
+## Getting Started
 
-**Prerequisites:** Node.js with npm. The build targets ES2023 and the server uses Express 5, so a current LTS release is expected.
+**Prerequisites:** Node.js with npm. The build targets a current TypeScript and Express 5, so a current LTS release is expected.
 
 **1. Clone and install**
 
@@ -275,7 +275,7 @@ Dependencies live in two manifests — the root for the frontend, `server/` for 
 
 ```bash
 git clone <repository-url>
-cd aljameela-club
+cd Gents-Club
 npm install
 npm install --prefix server
 ```
@@ -321,7 +321,7 @@ curl http://localhost:3001/api/health
 
 ---
 
-## Available Scripts
+## Development Commands
 
 Root `package.json`:
 
@@ -354,15 +354,15 @@ buildCommand = "npm run build"
 startCommand = "npm run start"
 ```
 
-**Install.** Both manifests are installed. The second command is essential: the server's dependencies resolve from `server/node_modules`, and omitting it leaves the API without Express at runtime.
+**Install.** Both manifests are installed. The server's runtime dependencies are declared in the root `package.json`, so a root install is sufficient for `npm start`; installing `server/` as well keeps the standalone API path working.
 
 **Build.** `npm run build` type-checks and emits the static frontend to `dist/`.
 
 **Start.** `npm start` launches the Express server, which serves `dist/` as static files and mounts the API under `/api`.
 
-**SPA fallback.** A catch-all route returns `index.html` for any path the static handler does not match, so `/for-adults`, `/ar/about`, and every other deep link resolve on direct load and refresh. The catch-all is registered after the API routes so it never shadows them. It uses Express 5 path syntax — running the server against Express 4 would break every deep link.
+**SPA fallback.** A catch-all route returns `index.html` for any path the static handler does not match, so `/for-adults`, `/ar/about`, and every other deep link resolve on direct load and refresh. The catch-all is registered after the API routes so it never shadows them. It uses Express 5 path syntax (`/{*path}`) — running the server against Express 4 would break every deep link.
 
-**Required configuration.** Set the server variables from the table above in the deployment environment. Set `CLIENT_ORIGIN` explicitly to `https://aljameelaclub.com` on Railway: it places the production origin on the CORS allowlist so the site's own API requests are accepted, and it resolves the absolute logo URL embedded in enquiry emails. Left unset, the CORS entry falls back to a localhost origin. `VITE_TURNSTILE_SITE_KEY` must be present at build time, since Vite inlines it into the bundle. Register the production domain with Cloudflare Turnstile, or the widget will refuse to render.
+**Required configuration.** Set the server variables from the table above in the deployment environment. Set `CLIENT_ORIGIN` explicitly to `https://gentsfacialclub.com` on Railway: it places the production origin on the CORS allowlist so the site's own API requests are accepted, and it resolves the absolute logo URL embedded in enquiry emails. Left unset, the CORS entry falls back to a localhost origin. `VITE_TURNSTILE_SITE_KEY` must be present at build time, since Vite inlines it into the bundle. Register the production domain with Cloudflare Turnstile, or the widget will refuse to render.
 
 ---
 
@@ -396,11 +396,13 @@ For clarity, the following are **not** implemented: authentication, authorizatio
 
 ## Design System
 
-Design tokens live in `src/styles/tokens.css` as CSS custom properties on `:root`. They cover the palette (ivory, ink, oxblood, gold and their variants), the type stacks, a `--sp-1` through `--sp-10` spacing scale, and layout values including `--gutter`, `--max-w`, and `--nav-h`. Prefer a token over a literal value.
+Design tokens live in `src/styles/tokens.css` as CSS custom properties on `:root`. They cover the palette, the type stacks, a `--sp-1` through `--sp-10` spacing scale, and layout values including `--gutter`, `--max-w`, and `--nav-h`. Prefer a token over a literal value.
+
+**Palette.** The current theme is a blue scheme built on `--ivory`, `--bone`, `--ink`, `--taupe`, `--oxblood`, and `--gold`. Note that several token *names* predate the current brand and no longer describe their values — `--gold` and `--oxblood` both hold blue tones. Treat the token name as an identifier for its role in the design, not as a colour description.
 
 **Typography** — Cormorant Garamond for display headings, Inter for body copy, DM Mono for uppercase labels and eyebrows, Zain for Arabic.
 
-**Responsive approach** — a desktop-first cascade with overrides at 960px, 768px, 600px, 480px, and 375px. Breakpoint rules are grouped in `src/styles/responsive.css`; the mobile navigation breakpoint is 768px.
+**Responsive approach** — a desktop-first cascade. The main shared breakpoints are grouped in `src/styles/responsive.css` and `src/styles/responsive-mid.css`, with additional component-specific breakpoints in individual stylesheets; the mobile navigation breakpoint is 768px.
 
 **RTL** — direction-specific rules are isolated in `src/styles/rtl.css`, scoped under `:root[dir="rtl"]`. Use logical properties such as `padding-inline` in new rules so they work in both directions without a second selector.
 
@@ -416,7 +418,7 @@ Design tokens live in `src/styles/tokens.css` as CSS custom properties on `:root
 | Add or change a translation | Add the key to `src/i18n/locales/en.ts` first — the type check will then require it in the other four locales |
 | Add a language | Create the locale module, register it in `src/i18n/index.ts`, and add the prefix to `LANG_PREFIXES` in `src/router/index.tsx` and the language list in `Nav.tsx` |
 | Add an API endpoint | Create a router in `server/src/routes/`, put the logic in `server/src/services/`, then mount it in `server/server.js` before the SPA catch-all |
-| Change pricing logic | `server/src/services/priceScraper.js` for parsing and caching; `src/hooks/useProductPrice.ts` for client-side behaviour |
+| Change the tracked product or pricing logic | `server/src/services/priceScraper.js` for the product URL, parsing and caching; `src/hooks/useProductPrice.ts` for client-side behaviour |
 | Change email content | `server/src/services/mailer.js` |
 | Add styles | The matching file in `src/styles/components/` or `src/styles/pages/`, never the `index.css` manifest |
 
@@ -439,7 +441,7 @@ The server cache had not filled when the page loaded. The client retries automat
 The Express server is not running. `npm run dev:client` alone starts only Vite; use `npm run dev` to run both, or start the server separately with `npm run dev:server`.
 
 **Deep links 404 in production**
-The SPA fallback is not being reached. Confirm the server is serving `dist/` (run `npm run build` first) and that `server/node_modules` was installed — the catch-all relies on Express 5 path syntax.
+The SPA fallback is not being reached. Confirm the server is serving `dist/` (run `npm run build` first) and that the Express 5 catch-all is intact.
 
 **Vite starts on an unexpected port**
 Port 5173 was already in use and Vite selected the next free port. The `/api` proxy still works; note that CORS allows only the configured `CLIENT_ORIGIN` and `http://localhost:4173`.
