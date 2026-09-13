@@ -2,7 +2,7 @@ import { useRouter } from '../router';
 import { useProductPrice } from '../hooks/useProductPrice';
 import { useLang } from '../context/LanguageContext';
 import forAdultsImg from '../assets/imgs/for-adults.webp';
-import seniorImg from '../assets/imgs/beautiful-senior-woman-portrait-posing-chair_23-2148891744.jpg';
+import secOneImg from '../assets/imgs/sec-one-for-adults.webp';
 import crownImg from '../assets/imgs/crown.png';
 import adultsIconImg from '../assets/imgs/adults-icon.png';
 import giftImg from '../assets/imgs/gift.png';
@@ -70,7 +70,7 @@ export function ForAdultsPage() {
               </div>
             </div>
             <div className="split-image">
-              <img src={seniorImg} alt="Adult member" />
+              <img src={secOneImg} alt="Adult member" />
               <div className="stamp">{adultsPrice ?? <span className="price-shimmer" />} {t.adults.stampUnit}</div>
             </div>
           </div>

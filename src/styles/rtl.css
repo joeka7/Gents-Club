@@ -373,3 +373,19 @@
 :root[dir="rtl"] .app-badges { flex-direction: row; }
 /* Eyebrow dots in RTL */
 :root[dir="rtl"] .eyebrow { flex-direction: row-reverse; justify-content: flex-end; }
+
+/* Mirror the For Adults / For Students hero background image in RTL so the
+   composition reads correctly right-to-left. Scoped to the <img> only, so the
+   overlay, text and buttons above it are unaffected. The mobile crop offset
+   (object-position: 80%) is mirrored to 20% to keep the same part of the
+   photo in frame once flipped. */
+:root[dir="rtl"] #adults-hero .page-hero-media img,
+:root[dir="rtl"] #students-hero .page-hero-media img {
+  transform: scaleX(-1);
+}
+@media (max-width: 767px) {
+  :root[dir="rtl"] #adults-hero .page-hero-media img,
+  :root[dir="rtl"] #students-hero .page-hero-media img {
+    object-position: 20%;
+  }
+}
