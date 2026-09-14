@@ -368,6 +368,7 @@
 :root[dir="rtl"] .pull { text-align: right; }
 :root[dir="rtl"] .footer-col ul { text-align: right; }
 :root[dir="rtl"] .country-select__dropdown { left: auto; right: 0; }
+:root[dir="rtl"] .country-select__search-input { text-align: right; }
 :root[dir="rtl"] .country-select__trigger { flex-direction: row-reverse; }
 :root[dir="rtl"] .phone-input-wrap { flex-direction: row; }
 :root[dir="rtl"] .app-badges { flex-direction: row; }

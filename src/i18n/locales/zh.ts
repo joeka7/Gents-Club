@@ -373,6 +373,8 @@ export const zh: Translations = {
     formSubtitle: "填写以下表单，我们将尽快与您联系。",
     fullName: "姓名",
     fullNamePlaceholder: "您的姓名",
+    searchCountry: "搜索国家/地区",
+    noCountriesFound: "未找到国家/地区",
     phoneNumber: "电话号码",
     emailAddress: "电子邮件",
     emailPlaceholder: "your@email.com",

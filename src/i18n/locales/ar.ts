@@ -394,6 +394,8 @@ export const ar: Translations = {
     formSubtitle: "املأ النموذج أدناه وسنرد عليك في أقرب وقت.",
     fullName: "الاسم الكامل",
     fullNamePlaceholder: "اسمك الكامل",
+    searchCountry: "ابحث عن دولة",
+    noCountriesFound: "لا توجد نتائج",
     phoneNumber: "رقم الهاتف",
     emailAddress: "البريد الإلكتروني",
     emailPlaceholder: "بريدك@الإلكتروني.com",

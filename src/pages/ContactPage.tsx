@@ -259,19 +259,42 @@ function CountrySelect({
   onChange: (c: Country) => void;
   disabled?: boolean;
 }) {
-  const { lang } = useLang();
+  const { lang, t } = useLang();
   const [open, setOpen] = useState(false);
+  const [query, setQuery] = useState('');
   const wrapRef = useRef<HTMLDivElement>(null);
+  const searchRef = useRef<HTMLInputElement>(null);
 
   useEffect(() => {
     const handler = (e: MouseEvent) => {
       if (wrapRef.current && !wrapRef.current.contains(e.target as Node)) {
         setOpen(false);
+        setQuery('');
       }
     };
     document.addEventListener('mousedown', handler);
     return () => document.removeEventListener('mousedown', handler);
   }, []);
+
+  // Focus the search field when the list opens so the user can type straight away.
+  // The query is cleared by closeList() rather than here, to avoid a cascading render.
+  useEffect(() => {
+    if (open) searchRef.current?.focus();
+  }, [open]);
+
+  const closeList = () => { setOpen(false); setQuery(''); };
+
+  // Match on the localised name, the English name, the dial code and the ISO
+  // code, so "United", "‫الإمارات‬", "+971" and "AE" all find the same country.
+  const q = query.trim().toLowerCase();
+  const visible = q
+    ? COUNTRIES.filter(c =>
+        localCountryName(c.code, lang).toLowerCase().includes(q) ||
+        c.name.toLowerCase().includes(q) ||
+        c.dial.includes(q) ||
+        c.dial.replace('+', '').includes(q.replace('+', '')) ||
+        c.code.toLowerCase() === q)
+    : COUNTRIES;
 
   return (
     <div className="country-select" ref={wrapRef}>
@@ -291,20 +314,45 @@ function CountrySelect({
       </button>
 
       {open && (
-        <div className="country-select__dropdown" role="listbox">
-          {COUNTRIES.map(c => (
-            <div
-              key={c.code}
-              className={`country-select__option${c.code === value.code ? ' selected' : ''}`}
-              role="option"
-              aria-selected={c.code === value.code}
-              onMouseDown={() => { onChange(c); setOpen(false); }}
-            >
-              <span className="country-select__option-flag">{flag(c.code)}</span>
-              <span className="country-select__option-name">{localCountryName(c.code, lang)}</span>
-              <span className="country-select__option-dial">{c.dial}</span>
-            </div>
-          ))}
+        <div className="country-select__dropdown">
+          <div className="country-select__search">
+            <input
+              ref={searchRef}
+              type="text"
+              className="country-select__search-input"
+              placeholder={t.contact.searchCountry}
+              value={query}
+              onChange={e => setQuery(e.target.value)}
+              onKeyDown={e => {
+                if (e.key === 'Escape') { closeList(); return; }
+                // Enter picks the only remaining match.
+                if (e.key === 'Enter' && visible.length === 1) {
+                  e.preventDefault();
+                  onChange(visible[0]);
+                  closeList();
+                }
+              }}
+              aria-label={t.contact.searchCountry}
+            />
+          </div>
+          <div className="country-select__options" role="listbox">
+            {visible.map(c => (
+              <div
+                key={c.code}
+                className={`country-select__option${c.code === value.code ? ' selected' : ''}`}
+                role="option"
+                aria-selected={c.code === value.code}
+                onMouseDown={() => { onChange(c); closeList(); }}
+              >
+                <span className="country-select__option-flag">{flag(c.code)}</span>
+                <span className="country-select__option-name">{localCountryName(c.code, lang)}</span>
+                <span className="country-select__option-dial">{c.dial}</span>
+              </div>
+            ))}
+            {visible.length === 0 && (
+              <div className="country-select__empty">{t.contact.noCountriesFound}</div>
+            )}
+          </div>
         </div>
       )}
     </div>

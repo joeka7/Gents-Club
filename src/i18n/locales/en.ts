@@ -404,6 +404,8 @@ export const en = {
     formSubtitle: "Fill in the form below and we'll get back to you promptly.",
     fullName: "Full Name",
     fullNamePlaceholder: "Your full name",
+    searchCountry: "Search country",
+    noCountriesFound: "No countries found",
     phoneNumber: "Phone Number",
     emailAddress: "Email Address",
     emailPlaceholder: "your@email.com",

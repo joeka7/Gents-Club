@@ -398,6 +398,8 @@ export const ru: Translations = {
     formSubtitle: "Заполните форму ниже, и мы ответим вам в ближайшее время.",
     fullName: "Полное имя",
     fullNamePlaceholder: "Ваше полное имя",
+    searchCountry: "Поиск страны",
+    noCountriesFound: "Страны не найдены",
     phoneNumber: "Номер телефона",
     emailAddress: "Электронная почта",
     emailPlaceholder: "ваш@email.com",

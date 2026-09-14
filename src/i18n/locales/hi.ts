@@ -396,6 +396,8 @@ export const hi: Translations = {
     formSubtitle: "नीचे फ़ॉर्म भरें और हम जल्द से जल्द आपसे संपर्क करेंगे।",
     fullName: "पूरा नाम",
     fullNamePlaceholder: "आपका पूरा नाम",
+    searchCountry: "देश खोजें",
+    noCountriesFound: "कोई देश नहीं मिला",
     phoneNumber: "फ़ोन नंबर",
     emailAddress: "ईमेल पता",
     emailPlaceholder: "your@email.com",
