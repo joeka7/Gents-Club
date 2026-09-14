@@ -11,7 +11,7 @@ router.post('/', async (req, res) => {
   const { name, phone, email, message, turnstileToken } = req.body;
 
   // CAPTCHA first, before any other work.
-  const captcha = await verifyTurnstile(turnstileToken);
+  const captcha = await verifyTurnstile(turnstileToken, req.ip);
   if (!captcha.ok) {
     return res.status(captcha.status).json({ success: false, error: captcha.error });
   }

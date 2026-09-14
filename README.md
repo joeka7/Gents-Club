@@ -257,7 +257,7 @@ Read by `dotenv` from `server/.env`. None are safe to expose to the client.
 | `EMAIL_TO` | Yes | Recipient address for enquiries |
 | `EMAIL_PORT` | No | SMTP port. Defaults to `587` |
 | `EMAIL_SECURE` | No | Set to `true` for implicit TLS. Defaults to `false` |
-| `TURNSTILE_SECRET_KEY` | Yes | Cloudflare Turnstile **secret** key, used for server-side verification |
+| `CLOUDFLARE_TURNSTILE_SECRET_KEY` | Yes | Cloudflare Turnstile **secret** key, used for server-side verification. Server-side only — never expose it to the client or prefix it with `VITE_`. The legacy name `TURNSTILE_SECRET_KEY` is still read as a fallback. Without it the contact endpoint rejects every submission |
 | `PORT` | No | HTTP port. Defaults to `3001` |
 | `CLIENT_ORIGIN` | Yes in production | Public site origin — set to `https://gentsfacialclub.com` in the production environment. Added to the CORS allowlist and used to build the absolute logo URL in enquiry emails. Falls back to `http://localhost:5173` for CORS, so configure it explicitly rather than relying on the default |
 
@@ -297,7 +297,7 @@ EMAIL_SECURE=false
 EMAIL_USER=your-smtp-user
 EMAIL_PASS=your-smtp-password
 EMAIL_TO=recipient@example.com
-TURNSTILE_SECRET_KEY=your-turnstile-secret-key
+CLOUDFLARE_TURNSTILE_SECRET_KEY=your-turnstile-secret-key
 PORT=3001
 ```
 
@@ -309,7 +309,9 @@ Both files are gitignored. The site runs without them, but the contact form will
 npm run dev
 ```
 
-This runs Vite and the Express server together. Vite prints the client URL — `http://localhost:5173` unless the port is taken — and proxies `/api` to the server on port 3001. To run them separately, use `npm run dev:client` and `npm run dev:server`.
+`npm run dev` is the command to use for local development. It runs Vite and the Express server together. Vite prints the client URL — `http://localhost:5173` unless the port is taken — and proxies `/api` to the server on port 3001.
+
+`dev:client` and `dev:server` start one half of the stack and exist for debugging a single process. Running `dev:client` alone leaves `/api` with nothing to proxy to; the proxy answers 503 and prints a note naming the cause, rather than failing as an opaque connection error in the browser.
 
 **4. Verify the setup**
 
@@ -328,8 +330,8 @@ Root `package.json`:
 | Command | Description |
 | --- | --- |
 | `npm run dev` | Run the Vite dev server and the Express server together |
-| `npm run dev:client` | Run the Vite dev server only |
-| `npm run dev:server` | Run the Express server only, with file watching |
+| `npm run dev:client` | Vite only — no API; `/api` returns 503. For debugging the client in isolation |
+| `npm run dev:server` | Express only, with file watching. For debugging the API in isolation |
 | `npm run build` | Type-check the project, then build to `dist/` |
 | `npm run preview` | Serve the production build locally |
 | `npm run lint` | Run ESLint across the repository |
