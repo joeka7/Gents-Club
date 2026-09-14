@@ -477,6 +477,9 @@ export function ContactPage() {
       return;
     }
 
+    // Supplied at build time; Vite inlines it into the bundle. A build without it
+    // renders no widget, so VITE_TURNSTILE_SITE_KEY must be set in every
+    // environment that builds the frontend.
     const siteKey = import.meta.env.VITE_TURNSTILE_SITE_KEY as string | undefined;
     if (!siteKey) return;
 
@@ -530,7 +533,7 @@ export function ContactPage() {
       return;
     }
 
-    if (import.meta.env.VITE_TURNSTILE_SITE_KEY && !turnstileToken) {
+    if (!turnstileToken) {
       setErrorMsg(t.contact.errors.captchaRequired);
       setStatus('error');
       return;
