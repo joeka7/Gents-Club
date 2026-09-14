@@ -28,12 +28,25 @@ const transporter = nodemailer.createTransport({
 /* Placeholder-aware config check, evaluated once at startup. The contact route
    reads this to fail fast with a descriptive message instead of an SMTP error. */
 const REQUIRED = ['EMAIL_HOST', 'EMAIL_USER', 'EMAIL_PASS', 'EMAIL_TO'];
-const missing  = REQUIRED.filter(k => !process.env[k] || process.env[k].startsWith('your-'));
+
+/* Classifies each variable by why it failed, so a platform-injected value that
+   is empty or still a placeholder is distinguishable from one that never
+   arrived. Reports presence only — values are never read into the log. */
+function describe(k) {
+  const v = process.env[k];
+  if (v === undefined) return 'not set';
+  if (v === '')        return 'set but empty';
+  if (v.startsWith('your-')) return 'placeholder';
+  return 'ok';
+}
+
+const missing = REQUIRED.filter(k => describe(k) !== 'ok');
 
 /** Logs SMTP reachability at startup, mirroring the original behaviour. */
 function verifyTransport() {
   if (missing.length) {
-    console.warn('\n  \u26a0  Missing or placeholder .env values:', missing.join(', '));
+    console.warn('\n  \u26a0  Email configuration incomplete:', missing.map(k => `${k} (${describe(k)})`).join(', '));
+    console.warn('     Checked process.env, which includes platform-injected variables.');
     console.warn('     Email sending will fail until these are filled in.\n');
     return;
   }
